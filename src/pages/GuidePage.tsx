@@ -21,8 +21,8 @@ export function GuidePage() {
       <ol className="relative mt-10 space-y-5">
         <span aria-hidden="true" className="absolute bottom-6 top-6 hidden w-px bg-line-strong md:block md:start-[27px]" />
         {phases.map((p, i) => (
-          <Reveal key={p.id} delay={i * 0.05}>
-            <li className="relative md:ps-20">
+          <li key={p.id} className="relative md:ps-20">
+            <Reveal delay={i * 0.05}>
               <span
                 aria-hidden="true"
                 className={`absolute start-0 top-6 hidden h-14 w-14 items-center justify-center rounded-[18px] text-[20px] font-semibold md:flex ${
@@ -66,8 +66,8 @@ export function GuidePage() {
                   <Icon name="arrow-right" size={16} className="flip-rtl" />
                 </Link>
               </article>
-            </li>
-          </Reveal>
+            </Reveal>
+          </li>
         ))}
       </ol>
 

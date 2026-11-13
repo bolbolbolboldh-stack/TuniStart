@@ -101,9 +101,9 @@ export function BudgetPage() {
         </p>
       )}
 
-      <div className="grid gap-5 xl:grid-cols-[1.5fr_1fr]">
+      <div className="grid gap-5">
         {/* Expenses editor */}
-        <Card className="p-5 sm:p-6">
+        <Card className="min-w-0 p-5 sm:p-6">
           <div className="flex items-center justify-between gap-3">
             <h2 className="text-[18px] font-semibold text-ink">{t('budget.expenses')}</h2>
             {hasExample && <Chip tone="dashed" icon="book">{t('common.pedagogical')}</Chip>}
@@ -112,7 +112,7 @@ export function BudgetPage() {
           <ul className="mt-4 space-y-3">
             {lines.map((line) => (
               <li key={line.id} className="rounded-[18px] border border-line p-3.5">
-                <div className="grid gap-3 sm:grid-cols-[1fr_1fr]">
+                <div className="grid items-end gap-3 md:grid-cols-[1fr_1.2fr_1fr_auto]">
                   <label className="block min-w-0">
                     <span className="mb-1.5 block text-[12.5px] font-medium text-muted">{t('budget.category')}</span>
                     <select
@@ -137,14 +137,14 @@ export function BudgetPage() {
                       className="h-11 w-full rounded-[12px] border border-line-strong bg-surface px-3 text-[15px] text-ink placeholder:text-faint focus:border-ink focus:outline-none"
                     />
                   </label>
-                </div>
-                <div className="mt-3 flex items-end gap-2">
-                  <div className="min-w-0 flex-1">
-                    <AmountInput label={t('budget.amount')} value={line.amount} onChange={(v) => updLine(line.id, { amount: v })} />
+                  <div className="flex min-w-0 items-end gap-2 md:contents">
+                    <div className="min-w-0 flex-1">
+                      <AmountInput label={t('budget.amount')} value={line.amount} onChange={(v) => updLine(line.id, { amount: v })} />
+                    </div>
+                    <Button variant="tertiary" size="sm" className="h-11 w-11 shrink-0 px-0" aria-label={`${t('budget.remove')} : ${line.label || l(getBudgetCategory(line.category).label)}`} onClick={() => setLines(lines.filter((x) => x.id !== line.id))}>
+                      <Icon name="trash" size={17} />
+                    </Button>
                   </div>
-                  <Button variant="tertiary" size="sm" className="mb-1.5 h-10 w-10 px-0" aria-label={`${t('budget.remove')} : ${line.label || l(getBudgetCategory(line.category).label)}`} onClick={() => setLines(lines.filter((x) => x.id !== line.id))}>
-                    <Icon name="trash" size={17} />
-                  </Button>
                 </div>
               </li>
             ))}
@@ -154,8 +154,11 @@ export function BudgetPage() {
           </Button>
         </Card>
 
+      </div>
+
+      <div className="grid gap-5 lg:grid-cols-2">
         {/* Chart */}
-        <Card className="p-5 sm:p-6">
+        <Card className="min-w-0 p-5 sm:p-6">
           <h2 className="text-[18px] font-semibold text-ink">{t('budget.breakdown')}</h2>
           {chartData.length === 0 ? (
             <div className="mt-4 flex aspect-square max-h-72 w-full flex-col items-center justify-center rounded-full border-2 border-dashed border-line-strong text-center text-[14px] text-muted">
@@ -211,13 +214,11 @@ export function BudgetPage() {
             </>
           )}
         </Card>
-      </div>
-
       {/* Funding */}
-      <Card className="p-5 sm:p-6">
+      <Card className="min-w-0 p-5 sm:p-6">
         <h2 className="text-[18px] font-semibold text-ink">{t('budget.funding')}</h2>
         {funding.length === 0 && <p className="mt-4 rounded-[16px] bg-surface-2 p-5 text-center text-[14px] text-muted">{t('budget.noFunding')}</p>}
-        <ul className="mt-4 grid gap-3 md:grid-cols-2">
+        <ul className="mt-4 grid gap-3">
           {funding.map((f) => (
             <li key={f.id} className="rounded-[18px] border border-line p-3.5">
               <label className="block">
@@ -258,6 +259,8 @@ export function BudgetPage() {
           {t('budget.addFunding')}
         </Button>
       </Card>
+
+      </div>
 
       <ConfirmDialog
         open={confirm}

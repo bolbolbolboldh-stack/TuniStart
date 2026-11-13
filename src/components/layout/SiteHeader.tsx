@@ -65,9 +65,12 @@ export function SiteHeader() {
             <ThemeSwitcher />
           </div>
           <LanguageSwitcher />
-          <ButtonLink to={state.completed ? '/resultats' : '/diagnostic'} size="sm" className="hidden h-10 px-4 sm:inline-flex" iconEnd="arrow-right">
-            {state.completed ? t('nav.myProject') : t('nav.start')}
-          </ButtonLink>
+          <div className="hidden md:block">
+            <ButtonLink to={state.completed ? '/resultats' : '/diagnostic'} size="sm" className="h-10 px-4" iconEnd="arrow-right">
+              <span className="hidden xl:inline">{state.completed ? t('nav.myProject') : t('nav.start')}</span>
+              <span className="xl:hidden">{state.completed ? t('nav.myProject') : t('nav.startShort')}</span>
+            </ButtonLink>
+          </div>
           <button
             className="glass pill inline-flex h-10 w-10 items-center justify-center text-ink lg:hidden"
             aria-label={t('nav.menu')}

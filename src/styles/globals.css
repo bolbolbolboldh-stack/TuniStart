@@ -179,6 +179,7 @@
   color: transparent;
 }
 
+@layer components {
 .container-page {
   width: 100%;
   max-width: 1200px;
@@ -188,6 +189,8 @@
 
 .reading {
   max-width: 68ch;
+}
+
 }
 
 .hairline {
@@ -264,4 +267,21 @@ html[dir='rtl'] .flip-rtl {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
   }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@media print {
+  .card, .glass {
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    background: #fff !important;
+    border-color: #ddd !important;
+  }
+  .glass::before { display: none; }
+  main { padding: 0 !important; }
+  details { break-inside: avoid; }
+  section, article, li { break-inside: avoid-page; }
 }

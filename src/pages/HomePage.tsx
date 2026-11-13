@@ -131,8 +131,9 @@ export function HomePage() {
         </Reveal>
         <ol className="relative mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {how.map((h, i) => (
-            <Reveal key={h.title} delay={i * 0.06}>
-              <li className="glass relative h-full rounded-[24px] p-6">
+            <li key={h.title} className="h-full">
+            <Reveal delay={i * 0.06} className="h-full">
+              <div className="glass relative h-full rounded-[24px] p-6">
                 <div className="flex items-center justify-between">
                   <IconTile name={h.icon} />
                   <span className="text-[44px] font-semibold leading-none text-line-strong tabular-nums" aria-hidden="true">
@@ -141,8 +142,9 @@ export function HomePage() {
                 </div>
                 <h3 className="mt-5 text-[17px] font-semibold text-ink">{h.title}</h3>
                 <p className="mt-1.5 text-[14.5px] leading-relaxed text-muted">{h.text}</p>
-              </li>
+              </div>
             </Reveal>
+            </li>
           ))}
         </ol>
       </section>

@@ -48,6 +48,9 @@ export function SummaryPage() {
         <Button variant="secondary" icon="file" onClick={text}>
           {t('summary.text')}
         </Button>
+        <Button variant="tertiary" icon="printer" onClick={() => window.print()}>
+          {t('common.print')}
+        </Button>
       </PageHeader>
 
       {status === 'error' && (
@@ -60,7 +63,7 @@ export function SummaryPage() {
           }
         />
       )}
-      <p className="flex items-center gap-2 text-[13px] text-muted">
+      <p className="no-print flex items-center gap-2 text-[13px] text-muted">
         <Icon name="languages" size={15} />
         {t('summary.pdfLangNote')}
       </p>
@@ -215,7 +218,9 @@ export function SummaryPage() {
           </Section>
         </div>
       </Card>
-      <Notice icon="shield">{t('wizard.privacy')}</Notice>
+      <div className="no-print">
+        <Notice icon="shield">{t('wizard.privacy')}</Notice>
+      </div>
     </div>
   )
 }

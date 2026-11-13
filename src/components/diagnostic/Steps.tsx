@@ -285,23 +285,23 @@ export function StepReview({ profile, goTo, errors }: StepProps) {
   ]
   return (
     <div className="space-y-6">
-      <dl className="card divide-y divide-[var(--line)] overflow-hidden rounded-[22px]">
+      <ul className="card divide-y divide-[var(--line)] overflow-hidden rounded-[22px]">
         {rows.map((r, i) => (
-          <div key={i} className="flex items-start gap-4 px-5 py-4">
+          <li key={i} className="flex items-start gap-4 px-5 py-4">
             <div className="min-w-0 flex-1">
-              <dt className="text-[13px] font-medium text-muted">{r.label}</dt>
-              <dd className={cn('mt-0.5 break-words text-[15.5px] font-medium', r.err ? 'text-ink underline decoration-dashed underline-offset-4' : 'text-ink')}>
+              <p className="text-[13px] font-medium text-muted">{r.label}</p>
+              <p className={cn('mt-0.5 break-words text-[15.5px] font-medium', r.err ? 'text-ink underline decoration-dashed underline-offset-4' : 'text-ink')}>
                 {r.err && <Icon name="alert" size={15} className="me-1.5 inline align-[-2px]" />}
                 {r.value}
-              </dd>
+              </p>
             </div>
             <button type="button" onClick={() => goTo?.(r.step)} className="pill shrink-0 px-3 py-1.5 text-[13.5px] font-semibold text-ink underline-offset-4 hover:bg-surface-2">
               {t('common.edit')}
               <span className="sr-only"> : {r.label}</span>
             </button>
-          </div>
+          </li>
         ))}
-      </dl>
+      </ul>
       <Notice icon="shield">{t('common.orientationWarning')}</Notice>
     </div>
   )

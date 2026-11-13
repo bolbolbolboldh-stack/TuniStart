@@ -56,7 +56,7 @@ const makeStyles = (rtl: boolean) =>
     headerMeta: { fontSize: 8, color: MUTED, textAlign: rtl ? 'left' : 'right' },
     footer: {
       position: 'absolute',
-      bottom: 24,
+      top: 800,
       left: 44,
       right: 44,
       flexDirection: rtl ? 'row-reverse' : 'row',
@@ -66,10 +66,9 @@ const makeStyles = (rtl: boolean) =>
       paddingTop: 8,
       fontSize: 7.2,
       color: MUTED,
-      gap: 16,
     },
-    footerText: { flex: 1, textAlign: rtl ? 'right' : 'left' },
-    title: { fontSize: 22, fontWeight: 700, textAlign: rtl ? 'right' : 'left', marginBottom: 4 },
+    footerText: { width: '80%', textAlign: rtl ? 'right' : 'left' },
+    title: { fontSize: 22, fontWeight: 700, lineHeight: 1.25, textAlign: rtl ? 'right' : 'left', marginBottom: 6 },
     sub: { fontSize: 9, color: MUTED, textAlign: rtl ? 'right' : 'left' },
     disclaimer: {
       marginTop: 14,
@@ -97,7 +96,8 @@ const makeStyles = (rtl: boolean) =>
       fontSize: 12.5,
       fontWeight: 700,
       marginBottom: 7,
-      paddingBottom: 4,
+      paddingBottom: rtl ? 7 : 4,
+      lineHeight: rtl ? 1.7 : 1.3,
       borderBottomWidth: 1.2,
       borderBottomColor: INK,
       textAlign: rtl ? 'right' : 'left',
@@ -141,6 +141,10 @@ export function ProjectSummaryPdf({ m }: { m: SummaryModel }) {
   return (
     <Document title={`TuniStart — ${m.title}`} author="TuniStart" subject={m.title} language={m.lang} creator="TuniStart" producer="TuniStart">
       <Page size="A4" style={s.page} wrap>
+        <View style={s.footer} fixed>
+          <Text style={s.footerText}>TuniStart · {m.disclaimer.split(/[.。]/)[0]}.</Text>
+          <Text render={({ pageNumber, totalPages }) => `${m.labels.page} ${pageNumber} / ${totalPages}`} />
+        </View>
         <View style={s.header} fixed>
           <View style={s.brand}>
             <Mark />
@@ -158,7 +162,7 @@ export function ProjectSummaryPdf({ m }: { m: SummaryModel }) {
 
         {/* 1 */}
         <View style={s.section}>
-          <Text style={s.h2} minPresenceAhead={60}>
+          <Text style={s.h2} minPresenceAhead={120}>
             1. {m.headings.s1}
           </Text>
           {m.identity.map((r) => (
@@ -171,7 +175,7 @@ export function ProjectSummaryPdf({ m }: { m: SummaryModel }) {
 
         {/* 2 */}
         <View style={s.section}>
-          <Text style={s.h2} minPresenceAhead={60}>
+          <Text style={s.h2} minPresenceAhead={120}>
             2. {m.headings.s2}
           </Text>
           <Text style={[s.p, { fontWeight: 700, marginBottom: 6 }]}>{m.orientation.heading}</Text>
@@ -194,7 +198,7 @@ export function ProjectSummaryPdf({ m }: { m: SummaryModel }) {
 
         {/* 3 */}
         <View style={s.section}>
-          <Text style={s.h2} minPresenceAhead={60}>
+          <Text style={s.h2} minPresenceAhead={120}>
             3. {m.headings.s3}
           </Text>
           {m.legalNotes.map((n, k) => (
@@ -204,7 +208,7 @@ export function ProjectSummaryPdf({ m }: { m: SummaryModel }) {
 
         {/* 4 */}
         <View style={s.section}>
-          <Text style={s.h2} minPresenceAhead={60}>
+          <Text style={s.h2} minPresenceAhead={120}>
             4. {m.headings.s4}
           </Text>
           {m.documents.map((g) => (
@@ -226,7 +230,7 @@ export function ProjectSummaryPdf({ m }: { m: SummaryModel }) {
 
         {/* 5 */}
         <View style={s.section}>
-          <Text style={s.h2} minPresenceAhead={60}>
+          <Text style={s.h2} minPresenceAhead={120}>
             5. {m.headings.s5}
           </Text>
           {m.steps.map((st) => (
@@ -260,7 +264,7 @@ export function ProjectSummaryPdf({ m }: { m: SummaryModel }) {
 
         {/* 6 */}
         <View style={s.section}>
-          <Text style={s.h2} minPresenceAhead={60}>
+          <Text style={s.h2} minPresenceAhead={120}>
             6. {m.headings.s6}
           </Text>
           {m.contacts.map((c) => (
@@ -274,10 +278,10 @@ export function ProjectSummaryPdf({ m }: { m: SummaryModel }) {
 
         {/* 7 */}
         <View style={s.section}>
-          <Text style={s.h2} minPresenceAhead={60}>
-            7. {m.headings.s7}
-          </Text>
-          <Text style={s.h3}>{m.labels.expenses}</Text>
+          <View wrap={false}>
+            <Text style={s.h2}>7. {m.headings.s7}</Text>
+            <Text style={s.h3}>{m.labels.expenses}</Text>
+          </View>
           {m.budget.lines.length === 0 ? (
             <Text style={s.muted}>{m.labels.noLines}</Text>
           ) : (
@@ -334,7 +338,7 @@ export function ProjectSummaryPdf({ m }: { m: SummaryModel }) {
 
         {/* 9 */}
         <View style={s.section}>
-          <Text style={s.h2} minPresenceAhead={60}>
+          <Text style={s.h2} minPresenceAhead={120}>
             9. {m.headings.s9}
           </Text>
           {m.sourcesList.map((x, k) => (
@@ -342,10 +346,6 @@ export function ProjectSummaryPdf({ m }: { m: SummaryModel }) {
           ))}
         </View>
 
-        <View style={s.footer} fixed>
-          <Text style={s.footerText}>TuniStart · {m.disclaimer.split(/[.。]/)[0]}.</Text>
-          <Text render={({ pageNumber, totalPages }) => `${m.labels.page} ${pageNumber} / ${totalPages}`} />
-        </View>
       </Page>
     </Document>
   )

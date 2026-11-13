@@ -2,6 +2,7 @@
  * Liquid glass — used selectively: navigation, floating surfaces, small cards,
  * dialogs, sticky results nav and the stepper. Reading areas use solid surfaces.
  */
+@layer components {
 .glass {
   position: relative;
   background: var(--glass-bg);
@@ -90,4 +91,6 @@
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.9),
     0 8px 24px -8px rgba(255, 255, 255, 0.18);
+}
+
 }
